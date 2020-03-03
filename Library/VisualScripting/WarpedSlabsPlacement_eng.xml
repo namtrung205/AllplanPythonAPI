@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Element>
+    <StringTable>WarpedSlabsPlacementStringTable stringtable</StringTable>
+    <Item>
+        <TextId>1001</TextId>
+        <Text>Placing line 1</Text>
+    </Item>
+    <Item>
+        <TextId>1002</TextId>
+        <Text>Pi slab</Text>
+    </Item>
+    <Item>
+        <TextId>1003</TextId>
+        <Text>Placing line 2</Text>
+    </Item>
+    <Item>
+        <TextId>1004</TextId>
+        <Text>Joint width</Text>
+    </Item>
+    <Item>
+        <TextId>1005</TextId>
+        <Text>Überstand</Text>
+    </Item>
+</Element>

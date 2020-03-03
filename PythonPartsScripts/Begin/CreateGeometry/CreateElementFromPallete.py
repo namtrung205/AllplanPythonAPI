@@ -49,7 +49,7 @@ def create_element(build_ele, doc):
 
     # Delete unused arguments
 
-    element = CreateBRepSwept3DService(doc)
+    element = BoxSteel(doc)
     return element.create(build_ele)
 
 class CreateBRepSwept3DService():
@@ -137,7 +137,6 @@ class CreateBRepSwept3DService():
 
     def create_extrude_breps(self): # Swept bởi Vector
 
-
         # Create Profile 1
         polyline = AllplanGeo.Polyline3D()
         polyline += AllplanGeo.Point3D(-50, -50, 0)
@@ -200,7 +199,7 @@ class CreateBRepSwept3DService():
         err_Fillet, brep_Fillet = AllplanGeo.FilletCalculus3D.Calculate(brep_Sub, edges, 5.0, True)
         self.create_elements(err_Fillet, brep_Fillet)
 
-
+    #Tao hinh Chop cut
     def create_frustum_pyramid(self):
         bottomPlane = AllplanGeo.Plane3D()
         bottomPlane.SetVector(AllplanGeo.Vector3D(0,0,1))
@@ -216,3 +215,112 @@ class CreateBRepSwept3DService():
             self.model_ele_list.append(AllplanBasisElements.ModelElement3D(self.com_prop, brep))
         else:
             print("Error: ")
+
+class BoxSteel():
+    # Contructor method
+    def __init__(self, doc):
+        """
+        Initialisation of class BRepBuilder
+        Args:
+            doc: input document
+        """
+        self.model_ele_list = [] # Danh sách chứa các model sẽ được tạo ra từ script
+        self.handle_list = [] # Danh sách các handle(điểm kéo thả giống gripPoint autocad)
+        self.document = doc # Current Document
+
+        #Get, set các thông số thuộc tính chung cho các phần tử
+        self.com_prop = AllplanBaseElements.CommonProperties() # Các thuộc tính chung của bản vẽ hiện hành (nét, đường, màu, layer....)
+        self.com_prop.GetGlobalProperties() # Hàm lấy các thuộc tính chung hiện hành(global)
+
+    def create(self, build_ele):
+        """
+        Create the elements
+
+        Args:
+            build_ele:  the building element.
+        Returns:
+            tuple  with created elements and handles. 
+            => Trả về 1 tuple chứa danh sách các elements và các handles được tạo ra
+        """
+        #Get parameter from palette
+        height = build_ele.Height.value
+        OD = build_ele.OD.value
+        thickness = build_ele.Thickness.value
+        radFillet = build_ele.RadFillet.value
+        self.create_extrude_box_steel(height, OD, thickness, radFillet)
+        return (self.model_ele_list, self.handle_list)
+
+    # Tranform
+    def translate(self, element, trans_vector):
+        """
+        Translate element by translation vector
+        """
+        matrix = AllplanGeo.Matrix3D()
+        matrix.Translate(trans_vector)
+        return AllplanGeo.Transform(element, matrix)
+
+    #Create Solid
+    def create_extrude_box_steel(self, height, OD, thickness, radFillet): # Swept bởi Vector
+
+        # Path to extrude
+        path = AllplanGeo.Polyline3D()
+        start_pnt = AllplanGeo.Point3D(0,0,0)
+        path += start_pnt
+        path += start_pnt + AllplanGeo.Point3D(0, 0, height)
+
+        # Create Profile 1
+        polyline_out = AllplanGeo.Polyline3D()
+        polyline_out += AllplanGeo.Point3D(-OD/2, -OD/2, 0)
+        polyline_out += polyline_out.GetLastPoint() + AllplanGeo.Vector3D(OD, 0, 0)
+        polyline_out += polyline_out.GetLastPoint() + AllplanGeo.Vector3D(0, OD, 0)
+        polyline_out += polyline_out.GetLastPoint() + AllplanGeo.Vector3D(-OD, 0, 0)
+        polyline_out += polyline_out.GetStartPoint()
+
+        profile_out = self.translate(polyline_out, AllplanGeo.Vector3D(0,0,0))
+
+        #self.model_ele_list.append(AllplanBasisElements.ModelElement3D(self.com_prop, profile_out))
+
+        poly_list_out = AllplanGeo.Polyline3DList()
+        poly_list_out.append(profile_out)
+
+        err_out, solid_out = AllplanGeo.CreateSweptPolyhedron3D(poly_list_out, path, True, True, AllplanGeo.Vector3D())
+
+        # Create Profile 2
+        ID = OD-thickness*2
+        polyline_in = AllplanGeo.Polyline3D()
+        polyline_in += AllplanGeo.Point3D(-ID/2, -ID/2, 0)
+        polyline_in += polyline_in.GetLastPoint() + AllplanGeo.Vector3D(ID, 0, 0)
+        polyline_in += polyline_in.GetLastPoint() + AllplanGeo.Vector3D(0, ID, 0)
+        polyline_in += polyline_in.GetLastPoint() + AllplanGeo.Vector3D(-ID, 0, 0)
+        polyline_in += polyline_in.GetStartPoint()
+
+        profile_in = self.translate(polyline_in, AllplanGeo.Vector3D(0,0,0))
+
+        self.model_ele_list.append(AllplanBasisElements.ModelElement3D(self.com_prop, profile_in))
+
+        poly_list_in = AllplanGeo.Polyline3DList()
+        poly_list_in.append(profile_in)
+
+        err_in, solid_in = AllplanGeo.CreateSweptPolyhedron3D(poly_list_in, path, True, True, AllplanGeo.Vector3D())
+
+        # Subtract Object
+        err, solid_box_steel = AllplanGeo.MakeSubtraction(solid_out, solid_in)
+
+        #Edge fillet
+        edges = AllplanUtil.VecSizeTList()
+        numberEdge = int(solid_box_steel.GetEdgesCount())
+        for i in range(0, numberEdge):
+            edges.append(i)
+
+        # Fillet
+        err_Fillet, solid_box_steel_fillet = AllplanGeo.FilletCalculus3D.Calculate(solid_box_steel, edges, radFillet, True)
+        self.create_elements(err_Fillet, solid_box_steel_fillet)
+
+    def create_elements(self, err, brep):
+        """
+        Create Brep element and helper elements
+        """
+        if not err and brep.IsValid:
+            self.model_ele_list.append(AllplanBasisElements.ModelElement3D(self.com_prop, brep))
+        else:
+            print("Error: Cannot Create SteelBox")

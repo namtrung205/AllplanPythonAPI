@@ -62,7 +62,7 @@ def create_element(build_ele, doc):
     return (model_ele_list, None, None)
 
 
-def create_interactor(coord_input, pyp_path, str_table_service):
+def create_interactor2(coord_input, pyp_path, str_table_service):
     """
     Create the interactor
 
@@ -98,7 +98,7 @@ class GeometrySelectInteractor():
         self.build_ele_service = BuildingElementService()
 
         self.coord_input.InitFirstElementInput(AllplanIFW.InputStringConvert("Select element"))
-
+        self.coord_input.SelectWallFace()
 
     def on_preview_draw(self):
         """
@@ -175,4 +175,5 @@ class GeometrySelectInteractor():
             return True
 
         return True
+
 

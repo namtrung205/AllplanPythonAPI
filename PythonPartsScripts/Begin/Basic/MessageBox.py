@@ -64,7 +64,7 @@ def create_element(build_ele, doc):
     del build_ele
     del doc
 
-    return (list(), list())
+    return ([],[])
 
 
 def on_control_event(build_ele, event_id):
@@ -82,22 +82,14 @@ def on_control_event(build_ele, event_id):
     # Delete unused arguments
     del build_ele
 
-    print ("MessageBox.py (on_control_event called, eventId: ", event_id, ")")
-
     if event_id == 1000:
-        #ret = AllplanUtil.ShowMessageBox("Allplan version: " + AllplanSett.AllplanVersion.Version(), AllplanUtil.MB_OK)
-        # ret = AllplanUtil.ShowMessageBox("Current date: " + datetime.now().strftime("%H:%M:%S"), 0)
+        #AllplanUtil.ShowMessageBox("Hello World", AllplanUtil.MB_OK)
         
         #Show Qt Window
-        print("Press me clicked")
         app = QApplication(sys.argv)
-        try:
-            gallery = MyGui()
-            gallery.show()
-            sys.exit(app.exec_())
-        except:
-            print("Error when close window PyQt")
-            pass
+        gallery = WidgetGallery()
+        gallery.show()
+        app.exec_()
 
     else:
         print("unknown event id ", event_id)

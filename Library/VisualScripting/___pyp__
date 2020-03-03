@@ -6,61 +6,36 @@
         <Version>1.0</Version>
         <Interactor>True</Interactor>
         <ReadLastInput>True</ReadLastInput>
-        <SubElements>extrude.pyp</SubElements>
+        <SubElements>Untitled script.pyp</SubElements>
     </Script>
     <SubElement>
-        <PyP>Etc\VisualScripts\Geometry\Vector\NodeVector3DByXYZ.pypsub</PyP>
+        <PyP>Etc\VisualScripts\Geometry\Objects\NodeBox.pypsub</PyP>
         <PageIndex>0</PageIndex>
-        <Name>Vector3DByXYZ</Name>
-        <ID>Vector3DByXYZ</ID>
-        <Position>1535,1571</Position>
+        <Name>Box</Name>
+        <ID>Box</ID>
+        <Position>1415,1358</Position>
         <DefaultValues>
-            <Z>
-                <Value>5000</Value>
-            </Z>
-        </DefaultValues>
-    </SubElement>
-    <SubElement>
-        <PyP>Etc\VisualScripts\Geometry\Curves\NodeCircle3D.pypsub</PyP>
-        <PageIndex>0</PageIndex>
-        <Name>Circle3D</Name>
-        <ID>Circle3D</ID>
-        <Position>1535,1859</Position>
-        <DefaultValues>
-            <Radius>
-                <Value>300</Value>
-            </Radius>
+            <PlacementPoint>
+                <Value>Point3D(155.7414626114, -60.2616749848, 0)</Value>
+            </PlacementPoint>
+            <Length>
+                <Value>180.41175552411377</Value>
+            </Length>
+            <Width>
+                <Value>796.6991737529278</Value>
+            </Width>
+            <Height>
+                <Value>473.1486858509932</Value>
+            </Height>
             <CreateModelObjects>
                 <Value>True</Value>
             </CreateModelObjects>
             <CreateModelPreviewObjects>
                 <Value>True</Value>
             </CreateModelPreviewObjects>
+            <CreateHandles>
+                <Value>False</Value>
+            </CreateHandles>
         </DefaultValues>
-    </SubElement>
-    <SubElement>
-        <PyP>Etc\VisualScripts\Geometry\Objects\NodeExtrudeAlongVector.pypsub</PyP>
-        <PageIndex>0</PageIndex>
-        <Name>ExtrudeAlongVector1</Name>
-        <ID>ExtrudeAlongVector1</ID>
-        <Position>1862,1758</Position>
-        <DefaultValues>
-            <CreateModelObjects>
-                <Value>True</Value>
-            </CreateModelObjects>
-            <CreateModelPreviewObjects>
-                <Value>True</Value>
-            </CreateModelPreviewObjects>
-        </DefaultValues>
-        <Constraints>
-            <ExtrusionVector>
-                <Value>Vector3DByXYZ:Vector</Value>
-                <Visible>False</Visible>
-            </ExtrusionVector>
-            <ObjectToExtrude>
-                <Value>Circle3D:Circle</Value>
-                <Visible>False</Visible>
-            </ObjectToExtrude>
-        </Constraints>
     </SubElement>
 </Element>

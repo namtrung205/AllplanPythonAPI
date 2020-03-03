@@ -6,7 +6,7 @@
     <ProjectGuid>{dd0efa3b-8738-4e9b-9bcd-b5b151b2d4f5}</ProjectGuid>
     <ProjectHome />
     <StartupFile />
-    <SearchPath>..\..\..\..\..\..\Program Files\Allplan\Allplan 2020\Prg</SearchPath>
+    <SearchPath>..\..\..\..\..\..\Program Files\Allplan\Allplan 2020\Prg;..\..\..\..\..\..\ProgramData\Nemetschek\Allplan\2020\ETC\PythonPartsScripts\GeneralScripts</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
@@ -27,7 +27,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CreateGeometry\__init__.py" />
+    <Compile Include="CreatePythonPart\CreateBoxPythonPart.py" />
+    <Compile Include="CreatePythonPart\CreatePipePythonPart.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CreatePythonPart\CreateUnionPipePythonPart.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CreatePythonPart\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interactor\DrawPipe.py" />
     <Compile Include="Interactor\SelectObject.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interactor\SelectPoint.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -35,10 +49,7 @@
     <Folder Include="Basic" />
     <Folder Include="Interactor\" />
     <Folder Include="CreateGeometry\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="example.pylintrc" />
-    <Content Include="pylintrc" />
+    <Folder Include="CreatePythonPart\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
