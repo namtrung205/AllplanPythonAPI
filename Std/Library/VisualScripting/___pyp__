@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Element>
+    <Script>
+        <Name>NodeScript.py</Name>
+        <Title>NodeScript</Title>
+        <Version>1.0</Version>
+        <Interactor>True</Interactor>
+        <ReadLastInput>True</ReadLastInput>
+        <SubElements>Untitled script.pyp</SubElements>
+    </Script>
+    <SubElement>
+        <PyP>Etc\VisualScripts\Geometry\Objects\NodeBox.pypsub</PyP>
+        <PageIndex>0</PageIndex>
+        <Name>Box</Name>
+        <ID>Box</ID>
+        <Position>1415,1358</Position>
+        <DefaultValues>
+            <PlacementPoint>
+                <Value>Point3D(155.7414626114, -60.2616749848, 0)</Value>
+            </PlacementPoint>
+            <Length>
+                <Value>180.41175552411377</Value>
+            </Length>
+            <Width>
+                <Value>796.6991737529278</Value>
+            </Width>
+            <Height>
+                <Value>473.1486858509932</Value>
+            </Height>
+            <CreateModelObjects>
+                <Value>True</Value>
+            </CreateModelObjects>
+            <CreateModelPreviewObjects>
+                <Value>True</Value>
+            </CreateModelPreviewObjects>
+            <CreateHandles>
+                <Value>False</Value>
+            </CreateHandles>
+        </DefaultValues>
+    </SubElement>
+</Element>

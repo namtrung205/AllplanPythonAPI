@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Element>
+    <Script>
+        <Name>NodeScript.py</Name>
+        <Title>NodeScript</Title>
+        <Version>1.0</Version>
+        <Interactor>True</Interactor>
+        <ReadLastInput>True</ReadLastInput>
+        <SubElements>Untitled script.pyp</SubElements>
+    </Script>
+    <SubElement>
+        <PyP>Etc\VisualScripts\ModelObjects\Filter\NodeFilterPythonPartName.pypsub</PyP>
+        <PageIndex>0</PageIndex>
+        <Name>FilterPythonPartName1</Name>
+        <ID>FilterPythonPartName1</ID>
+        <Position>1087,1368</Position>
+        <DefaultValues>
+            <PythonPartName>
+                <Value>Pipe</Value>
+            </PythonPartName>
+        </DefaultValues>
+    </SubElement>
+    <SubElement>
+        <PyP>Etc\VisualScripts\General\NodeShowInPalette.pypsub</PyP>
+        <PageIndex>0</PageIndex>
+        <Name>ShowInPalette</Name>
+        <ID>ShowInPalette</ID>
+        <Position>1296,1385</Position>
+        <Constraints>
+            <Value>
+                <Value>FilterPythonPartName1:NameFilter</Value>
+                <Visible>False</Visible>
+            </Value>
+        </Constraints>
+    </SubElement>
+</Element>
