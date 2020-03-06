@@ -222,7 +222,7 @@ class UnionPipe():
         #------------------ Create the handle
 
         handle_list = [HandleProperties("Handle",
-                                        AllplanGeo.Point3D(self.diameter/2, 0, 0),
+                                        AllplanGeo.Point3D(math.cos(self.angle)*self.diameter/2, math.sin(self.angle)*self.diameter/2, 0),
                                         AllplanGeo.Point3D(0, 0, 0),
                                         [("Angle", HandleDirection.angle),],
                                          HandleDirection.angle),
